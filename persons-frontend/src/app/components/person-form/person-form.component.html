@@ -1,0 +1,106 @@
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="mb-0">
+                        <i class="bi bi-person-plus me-2" *ngIf="!isEditMode"></i>
+                        <i class="bi bi-person-gear me-2" *ngIf="isEditMode"></i>
+                        {{ isEditMode ? 'Edit Person' : 'Add New Person' }}
+                    </h4>
+                </div>
+
+                <div class="card-body">
+                    <!-- Loading state -->
+                    <div *ngIf="loading" class="text-center py-4">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                        <p class="mt-2">{{ isEditMode ? 'Loading person details...' : 'Saving...' }}</p>
+                    </div>
+
+                    <!-- Error alert -->
+                    <div *ngIf="error" class="alert alert-danger" role="alert">
+                        <i class="bi bi-exclamation-triangle me-2"></i>{{ error }}
+                    </div>
+
+                    <!-- Form -->
+                    <form [formGroup]="personForm" (ngSubmit)="onSubmit()" *ngIf="!loading">
+                        <!-- Name field -->
+                        <div class="mb-3">
+                            <label for="name" class="form-label">
+                                Name <span class="text-danger">*</span>
+                            </label>
+                            <input type="text" class="form-control" id="name" formControlName="name"
+                                [class.is-invalid]="isFieldInvalid('name')" placeholder="Enter person's name">
+                            <div class="invalid-feedback" *ngIf="isFieldInvalid('name')">
+                                {{ getFieldError('name') }}
+                            </div>
+                        </div>
+
+                        <!-- Email field -->
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email" formControlName="email"
+                                [class.is-invalid]="isFieldInvalid('email')" placeholder="Enter email address">
+                            <div class="invalid-feedback" *ngIf="isFieldInvalid('email')">
+                                {{ getFieldError('email') }}
+                            </div>
+                        </div>
+
+                        <!-- Age field -->
+                        <div class="mb-3">
+                            <label for="age" class="form-label">Age</label>
+                            <input type="number" class="form-control" id="age" formControlName="age"
+                                [class.is-invalid]="isFieldInvalid('age')" placeholder="Enter age" min="0" max="150">
+                            <div class="invalid-feedback" *ngIf="isFieldInvalid('age')">
+                                {{ getFieldError('age') }}
+                            </div>
+                        </div>
+
+                        <!-- Photo URL field -->
+                        <div class="mb-4">
+                            <label for="photoUrl" class="form-label">Photo URL</label>
+                            <input type="url" class="form-control" id="photoUrl" formControlName="photoUrl"
+                                [class.is-invalid]="isFieldInvalid('photoUrl')"
+                                placeholder="Enter photo URL (optional)">
+                            <div class="invalid-feedback" *ngIf="isFieldInvalid('photoUrl')">
+                                {{ getFieldError('photoUrl') }}
+                            </div>
+                            <div class="form-text">
+                                Optional: Provide a URL to a photo (must start with http:// or https://)
+                            </div>
+
+                            <!-- Photo preview -->
+                            <div *ngIf="personForm.get('photoUrl')?.value" class="mt-2">
+                                <small class="text-muted d-block mb-1">Preview:</small>
+                                <img [src]="personForm.get('photoUrl')?.value" alt="Photo preview" class="img-thumbnail"
+                                    style="max-width: 100px; max-height: 100px;" (error)="onImageError($event)">
+                            </div>
+                        </div>
+
+                        <!-- Form buttons -->
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <button type="button" class="btn btn-secondary" (click)="onCancel()" [disabled]="loading">
+                                <i class="bi bi-x-circle me-1"></i>Cancel
+                            </button>
+                            <button type="submit" class="btn btn-primary" [disabled]="loading || personForm.invalid">
+                                <span *ngIf="loading" class="spinner-border spinner-border-sm me-2"
+                                    role="status"></span>
+                                <i class="bi bi-check-circle me-1" *ngIf="!loading"></i>
+                                {{ isEditMode ? 'Update Person' : 'Create Person' }}
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Back to list link -->
+            <div class="text-center mt-3">
+                <a routerLink="/persons" class="text-decoration-none">
+                    <i class="bi bi-arrow-left me-1"></i>Back to Persons List
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,173 @@
+# ==============================================
+# .NET CORE / ASP.NET CORE PROJECT
+# ==============================================
+
+# Build results
+bin/
+obj/
+out/
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+[Ww][Ii][Nn]32/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+bld/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+
+# User-specific files
+*.user
+*.suo
+*.cache
+*.docstates
+*.userprefs
+*.pidb
+*.booproj
+*.svd
+*.pdb
+*.opendb
+*.VC.db
+*.VC.VC.opendb
+*.rsuser
+*.userosscache
+*.sln.docstates
+
+# Visual Studio / VS Code
+.vs/
+.vscode/
+*.code-workspace
+
+# Entity Framework
+**/Migrations/**/*.cs
+!**/Migrations/**/AppDbContextModelSnapshot.cs
+# Remove the above lines if you want to track migrations
+
+# Connection strings and secrets
+appsettings.Development.json
+appsettings.Local.json
+*.secrets.json
+launchSettings.json
+
+# NuGet
+*.nupkg
+*.snupkg
+packages/
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+
+
+# ==============================================
+# ANGULAR FRONTEND PROJECT
+# ==============================================
+
+# Dependencies
+persons-frontend/node_modules/
+persons-frontend/npm-debug.log*
+persons-frontend/yarn-debug.log*
+persons-frontend/yarn-error.log*
+
+# Build outputs
+persons-frontend/dist/
+persons-frontend/dist-server/
+persons-frontend/tmp/
+persons-frontend/out-tsc/
+persons-frontend/bazel-out/
+
+# Angular specific
+persons-frontend/.angular/
+persons-frontend/.sass-cache/
+persons-frontend/connect.lock
+persons-frontend/coverage/
+persons-frontend/libpeerconnection.log
+persons-frontend/testem.log
+persons-frontend/typings/
+persons-frontend/.nyc_output/
+
+# Package files
+persons-frontend/package-lock.json
+persons-frontend/yarn.lock
+
+# Environment files
+persons-frontend/.env
+persons-frontend/.env.local
+persons-frontend/.env.*.local
+
+# ==============================================
+# DOCUMENTATION & OFFICE FILES
+# ==============================================
+
+# Microsoft Office files
+*.docx
+*.doc
+*.pptx
+*.ppt
+*.xlsx
+*.xls
+Screenshots.*
+
+# ==============================================
+# SYSTEM & IDE FILES
+# ==============================================
+
+# IDEs and editors
+.idea/
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+.history/
+
+# System files
+.DS_Store
+.AppleDouble
+.LSOverride
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+*.tmp
+*.temp
+*~
+._*
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Coverage directory used by tools like istanbul
+coverage/
+*.lcov
+
+# Dependency directories
+jspm_packages/
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# Yarn Integrity file
+.yarn-integrity
+
+# parcel-bundler cache
+.cache
+.parcel-cache

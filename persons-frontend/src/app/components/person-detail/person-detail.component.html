@@ -1,0 +1,126 @@
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+
+            <!-- Loading state -->
+            <div *ngIf="loading" class="text-center py-5">
+                <div class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+                <p class="mt-2">Loading person details...</p>
+            </div>
+
+            <!-- Error state -->
+            <div *ngIf="error && !loading" class="alert alert-danger" role="alert">
+                <i class="bi bi-exclamation-triangle me-2"></i>{{ error }}
+                <div class="mt-3">
+                    <button class="btn btn-outline-danger me-2" (click)="loadPerson()">
+                        <i class="bi bi-arrow-clockwise me-1"></i>Try Again
+                    </button>
+                    <button class="btn btn-secondary" (click)="goBack()">
+                        <i class="bi bi-arrow-left me-1"></i>Back to List
+                    </button>
+                </div>
+            </div>
+
+            <!-- Person details -->
+            <div *ngIf="person && !loading && !error" class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h4 class="mb-0">
+                        <i class="bi bi-person-circle me-2"></i>Person Details
+                    </h4>
+                    <div class="btn-group" role="group">
+                        <button class="btn btn-outline-warning btn-sm" (click)="editPerson()" title="Edit Person">
+                            <i class="bi bi-pencil me-1"></i>Edit
+                        </button>
+                        <button class="btn btn-outline-danger btn-sm" (click)="deletePerson()" title="Delete Person">
+                            <i class="bi bi-trash me-1"></i>Delete
+                        </button>
+                    </div>
+                </div>
+
+                <div class="card-body">
+                    <div class="row">
+                        <!-- Photo column -->
+                        <div class="col-md-4 text-center mb-4 mb-md-0">
+                            <div class="person-photo-container">
+                                <img [src]="person.photoUrl || 'assets/default-avatar.png'" [alt]="person.name"
+                                    class="person-photo img-fluid rounded-circle"
+                                    onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDIwMCAyMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMTAwIiBjeT0iMTAwIiByPSIxMDAiIGZpbGw9IiNEQ0RDREMiLz48c3ZnIHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIiB2aWV3Qm94PSIwIDAgMjQgMjQiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTEyIDEyQzE0LjIwOTEgMTIgMTYgMTAuMjA5MSAxNiA4QzE2IDUuNzkwODYgMTQuMjA5MSA0IDEyIDRDOS43OTA4NiA0IDggNS43OTA4NiA4IDhDOCAxMC4yMDkxIDkuNzkwODYgMTIgMTIgMTJaIiBmaWxsPSJ3aGl0ZSIvPjxwYXRoIGQ9Ik0xMiAxNEM4LjEzNDAxIDE0IDUgMTcuMTM0MCA1IDIxSDlIMTVIMTlDMTkgMTcuMTM0IDE1Ljg2NiAxNCAxMiAxNFoiIGZpbGw9IndoaXRlIi8+PC9zdmc+PC9zdmc+'">
+                            </div>
+                        </div>
+
+                        <!-- Details column -->
+                        <div class="col-md-8">
+                            <div class="person-details">
+
+                                <!-- Name -->
+                                <div class="detail-item mb-3">
+                                    <label class="detail-label">Name</label>
+                                    <div class="detail-value">
+                                        <strong>{{ person.name || 'Not provided' }}</strong>
+                                    </div>
+                                </div>
+
+                                <!-- Email -->
+                                <div class="detail-item mb-3">
+                                    <label class="detail-label">Email</label>
+                                    <div class="detail-value">
+                                        <span *ngIf="!person.email" class="text-muted">Not provided</span>
+                                        <a *ngIf="person.email" [href]="'mailto:' + person.email"
+                                            class="text-decoration-none">
+                                            <i class="bi bi-envelope me-1"></i>{{ person.email }}
+                                        </a>
+                                    </div>
+                                </div>
+
+                                <!-- Age -->
+                                <div class="detail-item mb-3">
+                                    <label class="detail-label">Age</label>
+                                    <div class="detail-value">
+                                        <span *ngIf="!person.age" class="text-muted">Not provided</span>
+                                        <span *ngIf="person.age">{{ person.age }} years old</span>
+                                    </div>
+                                </div>
+
+                                <!-- Person ID -->
+                                <div class="detail-item mb-3">
+                                    <label class="detail-label">ID</label>
+                                    <div class="detail-value">
+                                        <small class="text-muted font-monospace">{{ person.personId }}</small>
+                                    </div>
+                                </div>
+
+                                <!-- Photo URL -->
+                                <div class="detail-item mb-3" *ngIf="person.photoUrl">
+                                    <label class="detail-label">Photo URL</label>
+                                    <div class="detail-value">
+                                        <a [href]="person.photoUrl" target="_blank" class="text-decoration-none">
+                                            <i class="bi bi-link-45deg me-1"></i>View Original
+                                        </a>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-footer d-flex justify-content-between">
+                    <button class="btn btn-secondary" (click)="goBack()">
+                        <i class="bi bi-arrow-left me-1"></i>Back to List
+                    </button>
+                    <div>
+                        <button class="btn btn-warning me-2" (click)="editPerson()">
+                            <i class="bi bi-pencil me-1"></i>Edit Person
+                        </button>
+                        <button class="btn btn-danger" (click)="deletePerson()">
+                            <i class="bi bi-trash me-1"></i>Delete
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
